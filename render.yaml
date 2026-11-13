@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: klas3-hoofdstuk1-versie-a
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 2 --bind 0.0.0.0:$PORT app:app
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: TEACHER_PASSWORD_HASH
+        sync: false
+      - key: COOKIE_SECURE
+        value: '1'
